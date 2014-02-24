@@ -50,6 +50,14 @@ $.fn.chainedTest = function (o) {
                 if (o.callbackTestFunction)
                     o.callbackTestFunction(output, o.expected, o.expectedMessage);
                 //return output;
+            } else {
+                if ($.data(this, 'url')) {
+                    console.log(this);
+                    console.log($.data(this, 'url'));
+                } else {
+                    console.log(this);
+                    console.log($.data(this, 'url'));
+                }
             }
         }
     })
@@ -136,6 +144,63 @@ test('GithubCode.detectLanguage() gets proper extension', function () {
     testCase(testOptions);
 });
 
+module('Get sample files')
+test('Should retreive sample files', function () { // Should 
+    // Setup - default options
+    var testOptions = {
+        dataKey: 'plugin_githubcode',
+        functionName: 'na', //detectLanguage',
+        callbackTestFunction: equal,
+        expected: 'javascript',
+        expectedMessage: 'Expected detectLanguage() to return proper value for file extension: ',
+        arg0: 'file.js',
+        arg1: null,
+        arg2: null,
+        arg3: null,
+        arg4: null
+    };
+    var function_parseUrlParams = 'parseUrlParams';
+    var function_parseApiParams = 'parseApiParams';
+    var function_constructRequestUrl = 'constructRequestUrl';
+
+    var testCase = function (options, dataUrl) {
+        var item = $('<code />').addClass('githubcode');
+        item.attr({ 'data-url': dataUrl });
+        //$.data(item[0], 'url', dataUrl);
+        console.log('After "' + dataUrl + '" --------------------------')
+        console.log(item[0]);
+        $('.others').append(item[0]);
+        item.githubcode().chainedTest(options);
+    }
+
+//    equal('', 'not implemented');
+    var baseUrl = 'https://github.com/dagilleland/jquery.githubcode/blob/unit-tests/tests/testdata/';
+               // 'https://github.com/dagilleland/jquery.githubcode/tree/unit-tests/tests/testdata/';
+    var testDataFiles = [
+        'hello',
+        'hello.coffee',
+        'hello.cs',
+        'hello.css',
+        'hello.htm',
+        'hello.html',
+        'hello.java',
+        'hello.js',
+        'hello.md',
+        'hello.php',
+        'hello.sass',
+        'hello.scss',
+        'hello.svg',
+        'hello.vb',
+        'with space/hello.htm'
+    ];
+    testDataFiles.forEach(function (element) {
+        testOptions.arg0 = element;
+        testCase(testOptions, baseUrl + element);
+    })
+
+    equal('', 'not implemented');
+
+});
 
 
 var MakeTestCase = function () {
@@ -174,5 +239,18 @@ test('Should provide public access to default options', function () {
 // --------------------------------------------------------------------------------------------------
 // fill up the hard-coded visual samples on the test page
 $(function () {
-    $('code.githubcode').githubcode();
+    $('code.githubcode').githubcode()
+        //.chainedTest({
+        //dataKey: 'plugin_githubcode',
+        //functionName: 'detectLanguage',
+        //callbackTestFunction: equal,
+        //expected: 'javascript',
+        //expectedMessage: 'Expected detectLanguage() to return proper value for file extension: ',
+        //arg0: 'file.js',
+        //arg1: null,
+        //arg2: null,
+        //arg3: null,
+        //arg4: null
+        //})
+    ;
 });

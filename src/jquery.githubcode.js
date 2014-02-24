@@ -150,11 +150,14 @@
         'sass'    : 'sass',
         'scss'    : 'scss',
         'html'    : 'markup',
-        'htm '    : 'markup',
+        'htm'     : 'markup',
         'md'      : 'markup',
         'svg'     : 'markup',
         'coffee'  : 'coffeescript',
-        'php'     : 'php'
+        'php'     : 'php',
+        'cs'      : 'csharp',
+        'vb'      : 'visualbasic',
+        'txt'     : 'text'
       }
 
       return languages[ext];
